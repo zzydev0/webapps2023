@@ -1,7 +1,6 @@
 from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
 
 from sign import models
@@ -50,7 +49,7 @@ def register(request):
                     return render(request, 'sign/register.html', locals())
                 new_user = User.objects.create_user(
                     username=username,
-                    password=make_password(password, 'webapps2023'),
+                    password=password,
                     first_name=first_name,
                     last_name=last_name,
                     email=email,
