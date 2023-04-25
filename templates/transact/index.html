@@ -1,0 +1,68 @@
+{% extends 'sign/profile.html' %}
+
+{% block search-display %}
+    {% if not curr_user.is_superuser %}
+        <hr>
+        <hr>
+        <h3>[Pay & Collect]</h3>
+        <p>Find your partner by email:</p>
+        <form class="form-control" method="get" action="/transact/search">
+            {% csrf_token %}
+            <input type="email" class="form-control" name="email" placeholder="Input the email(xxx@example.com)">
+            <br>
+            <button type="submit" class="btn btn-secondary btn-lg">Search</button>
+            <br>
+        </form>
+    {% endif %}
+
+    {% block search-result %}
+    {% endblock %}
+
+    {% block transaction_info %}
+        {% if success_tag %}
+            <p style="color: green"><em>Successfully!</em></p>
+        {% endif %}
+        {% if fail_tag %}
+            <p style="color: crimson"><em>Failed!(balance is not enough)</em></p>
+        {% endif %}
+    {% endblock %}
+{% endblock %}
+
+{% block all-users-display %}
+    {% if curr_user.is_superuser %}
+        <hr>
+        <hr>
+        <br>
+        <h3>[All Registered Users]</h3>
+        <br>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Balance</th>
+                <th scope="col">Currency</th>
+                <th scope="col">is_Admin</th>
+                <th scope="col">Created Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.balance }}</td>
+                    <td>{{ user.currency }}</td>
+                    <td>{{ user.is_superuser }}</td>
+                    <td>{{ user.created_time }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
+

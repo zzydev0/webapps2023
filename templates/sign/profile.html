@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block nav-content %}
+    {% if curr_user.is_superuser %}
+        <li class="nav-item">
+            <a class="nav-link active" href="/sign/profile/">[Home]</a>
+        </li>
+        <span class="navbar-text">
+        &nbsp;&nbsp;&nbsp;&nbsp;Good {{ curr_user.get_part_of_day }}, Administrator&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>
+        <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/sign/logout/"><strong>[ Log out ]</strong></a>
+            </li>
+        </ul>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link active" href="/sign/profile/">[Home]</a>
+        </li>
+        <span class="navbar-text">
+        &nbsp;&nbsp;&nbsp;&nbsp;Good {{ curr_user.get_part_of_day }}, {{ curr_user.username }}&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>
+        <a class="navbar-brand" href="/transact/notify/">
+            <img src="/static/img/message.png" alt="Bootstrap" width="25" height="16">
+            [ {{ curr_user.get_nn }} ]
+        </a>
+        <ul class="navbar-nav me-auto mb-3 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/sign/logout/"><strong>[ Log out ]</strong></a>
+            </li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+
+{% block bg-content %}
+    {% if curr_user.is_superuser %}
+        <div class="card" style="width: 50rem;height: 20rem">
+            <div class="card-body">
+                <h3 class="card-title">Dear Administrator, you can:<br></h3>
+                <ul class="list-group">
+                    <li class="list-group-item"><strong>[Check all users]</strong> &emsp;
+                        <a href="/transact/" class="card-link">
+                            <button type="button" class="btn btn-warning">Check</button>
+                        </a>
+                    </li>
+                    <li class="list-group-item"><strong>[Check all transactions]</strong> &emsp;
+                        <a href="/transact/history/" class="card-link">
+                            <button type="button" class="btn btn-warning">Check</button>
+                        </a>
+                    </li>
+                    <li class="list-group-item"><strong>[Upgrade a User]</strong> &emsp;
+                        <a href="/transact/upgrade/" class="card-link">
+                            <button type="button" class="btn btn-warning">Upgrade</button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% else %}
+        <div class="card" style="width: 50rem;height: 20rem">
+            <div class="card-body">
+                <h3 class="card-title">Dear {{ curr_user.first_name }} {{ curr_user.last_name }},<br></h3>
+                <h4 class="card-subtitle mb-3 text-muted">
+                    <br>Email: {{ curr_user.email }}
+                    <br> Balance: {{ curr_user.balance }}
+                    <br>Currency: {{ curr_user.currency }}
+                </h4>
+                <p class="card-text">
+                    Money can’t buy happiness.<br>--- mid 19th century
+                </p>
+                <a href="/transact/" class="card-link">
+                    <button type="button" class="btn btn-primary btn-lg">Pay & Collect</button>
+                </a>
+                <a href="/transact/history/" class="card-link">
+                    <button type="button" class="btn btn-outline-success btn-lg">History</button>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+    {% block search-display %}
+    {% endblock %}
+
+    {% block history %}
+    {% endblock %}
+
+    {% block notifications %}
+    {% endblock %}
+
+    {% block all-users-display %}
+    {% endblock %}
+
+    {% block upgrade %}
+    {% endblock %}
+
+{% endblock %}
+

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block nav-content %}
+    <li class="nav-item">
+        <a class="nav-link active" href="/sign/profile">[Home]</a>
+    </li>
+{% endblock %}
+
+{% block bg-content %}
+    <p class="text-start">Dear {{ last_name }} {{ first_name }},</p>
+    <p class="text-center">Congratulations! You have been a member of ZingPay!
+        <a href="/sign/profile">
+            <button type="button" class="btn btn-success">Login</button>
+        </a>
+    </p>
+    <p class="text-end">ZingPay</p>
+{% endblock %}

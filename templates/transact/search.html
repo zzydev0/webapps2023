@@ -1,0 +1,56 @@
+{% extends 'transact/index.html' %}
+
+{% block search-result %}
+    {% if result %}
+        {% if self_check %}
+            <form class="form-control" method="get" action="/transact/pay/">
+                {% csrf_token %}
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">First name</th>
+                        <th scope="col">Last name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Business Type</th>
+                        <th scope="col">Option</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ target_user.username }}</td>
+                        <td>{{ target_user.first_name }}</td>
+                        <td>{{ target_user.last_name }}</td>
+                        <td>{{ target_user.email }}</td>
+                        <td>
+                            <input class="form-control" type="number" min="0.01" step="0.01" max="999999999999" name="amount">
+                        </td>
+                        <td>
+                            <select class="form-select" name="unit">
+                                <option value='GBP'>GBP</option>
+                                <option value='EUR'>EUR</option>
+                                <option value='USD'>USD</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-select" name="business_type">
+                                <option value='pay'>pay</option>
+                                <option value='collect'>collect</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-warning" name="target_user"
+                                    value={{ target_user.username }}>Confirm
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        {% else %} <p style="color: crimson"><em>You can not search your own email.</em></p>
+        {% endif %}
+    {% else %} <p style="color: crimson"><em>The user does not exist.</em></p>
+    {% endif %}
+{% endblock %}

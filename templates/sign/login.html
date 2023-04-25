@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+
+{% block bg-content %}
+    <!-- container -->
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+            <form class='form-login' action="/sign/login/" method="post">
+                {% csrf_token %}
+
+                {% if message %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}
+
+                <h2 class="text-center">Welcome to ZingPay!</h2>
+                <div class="form-group">
+                    <label for="id_username">Username: </label>
+                    <input type="text" name='username' class="form-control" id="id_username" placeholder="Username"
+                           autofocus required>
+                </div>
+                <div class="form-group">
+                    <label for="id_password">Password: </label>
+                    <input type="password" name='password' class="form-control" id="id_password" placeholder="Password"
+                           required>
+                </div>
+                <button type="submit" class="btn btn-primary pull-right">Go</button>
+                <button type="reset" class="btn btn-default pull-left">Reset</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+

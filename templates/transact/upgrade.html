@@ -1,0 +1,32 @@
+{% extends 'sign/profile.html' %}
+
+{% block upgrade %}
+    <hr>
+    <hr>
+    <h3>[All Normal Users]</h3>
+    <table class="table">
+        <form class="form-control" method="get" action="/transact/upgrade/">
+            <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">email</th>
+                <th scope="col">Option</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <button type="submit" class="btn btn-warning" name="option" value={{ user.username }}>
+                            Upgrade
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </form>
+    </table>
+{% endblock %}
+

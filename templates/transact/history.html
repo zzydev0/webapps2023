@@ -1,0 +1,81 @@
+{% extends 'sign/profile.html' %}
+
+{% block history %}
+    {% if curr_user.is_superuser %}
+        <hr>
+        <h3>[All Transactions]</h3>
+        <br>
+        <hr>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">From</th>
+                <th scope="col">From_currency</th>
+                <th scope="col">To</th>
+                <th scope="col">To_currency</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Type</th>
+                <th scope="col">Status</th>
+                <th scope="col">Time</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for transactions in transactions_list %}
+                <tr>
+                    <td>{{ transactions.1 }}</td>
+                    <td>{{ transactions.2 }}</td>
+                    <td>{{ transactions.3 }}</td>
+                    <td>{{ transactions.4 }}</td>
+                    <td>{{ transactions.5 }}</td>
+                    <td>{{ transactions.6 }}</td>
+                    <td>{{ transactions.7 }}</td>
+                    <td>{{ transactions.8 }}</td>
+                    <td>{{ transactions.9 }}</td>
+                    <td>{{ transactions.10 }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h3>[History]</h3>
+        {% if curr_user.history == '' %} <p style="color: crimson"><em>There is no history now~</em></p>
+        {% else %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">From</th>
+                    <th scope="col">From_currency</th>
+                    <th scope="col">To</th>
+                    <th scope="col">To_currency</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for items in transactions_list %}
+                    <tr>
+                        <td>{{ items.0 }}</td>
+                        <td>{{ items.1 }}</td>
+                        <td>{{ items.2 }}</td>
+                        <td>{{ items.3 }}</td>
+                        <td>{{ items.4 }}</td>
+                        <td>{{ items.5 }}</td>
+                        <td>{{ items.6 }}</td>
+                        <td>{{ items.7 }}</td>
+                        <td>{{ items.8 }}</td>
+                        <td>{{ items.9 }}</td>
+                        <td>{{ items.10 }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

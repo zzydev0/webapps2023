@@ -1,0 +1,53 @@
+{% extends 'sign/profile.html' %}
+
+{% block notifications %}
+    <hr>
+    <hr>
+    <h3>[Notifications]</h3>
+    {% if curr_user.get_nn == 0 %} <p style="color: crimson"><em>There is no notification now~</em></p>
+    {% else %}
+        <form class="form-control" method="get" action="/transact/handle/">
+        {% csrf_token %}
+        {% if message %}
+            <div class="alert alert-warning">{{ message }}</div>
+        {% endif %}
+        <ul class="list-group">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">From</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Option[1]</th>
+                    <th scope="col">Option[2]</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for items in notifications_list %}
+                    <tr>
+                        <td>{{ items.0 }}</td>
+                        <td>{{ items.1 }}</td>
+                        <td>{{ items.2 }}</td>
+                        <td>{{ items.3 }}</td>
+                        <td>{{ items.4 }}</td>
+                        <td>
+                            <button type="submit" class="btn btn-warning" name="option"
+                                    value="accept_{{ items.0 }}_{{ items.1 }}">
+                                Accept
+                            </button>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-warning" name="option"
+                                    value="decline_{{ items.0 }}_{{ items.1 }}">
+                                Decline
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </ul>
+    {% endif %}
+{% endblock %}
