@@ -70,7 +70,7 @@ def login(request):
         if login_form.is_valid():
             username = login_form.cleaned_data['username']
             password = login_form.cleaned_data['password']
-            user_obj = authenticate(username=username, password=make_password(password, 'webapps2023'))
+            user_obj = authenticate(username=username, password=password)
             if user_obj is not None:
                 auth.login(request, user_obj)
                 return redirect('/sign/profile')
