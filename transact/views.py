@@ -48,13 +48,13 @@ def pay(request):
     business_type = request.GET.get('business_type')
     balance = curr_user.balance
     if business_type == 'pay':
-        from_amount = convert('http://localhost:8000', unit, curr_currency, amount)
+        from_amount = convert('http://3.88.160.124:8000', unit, curr_currency, amount)
         pay_condition = (from_amount <= balance)
         if pay_condition:
             try:
                 with transaction.atomic():
                     curr_user.balance -= from_amount
-                    to_amount = convert('http://localhost:8000', unit, target_currency, amount)
+                    to_amount = convert('http://3.88.160.124:8000', unit, target_currency, amount)
                     target_user.balance += to_amount
                     success_tag = True
                     curr_user.transactions += f'{curr_user.username}_{curr_user.currency}_{target_user.username}_{target_currency}_{amount}_{unit}_{business_type}_success_{datetime.now().strftime("%H:%M:%S %m/%d/%Y")},'
@@ -120,7 +120,7 @@ def handle_notification(request):
     fail_tag = False
     message = ''
     if choice == 'accept':
-        to_amount = convert('http://localhost:8000', curr_currency, unit, amount)
+        to_amount = convert('http://3.88.160.124:8000', curr_currency, unit, amount)
         pay_condition = (to_amount <= curr_user.balance)
         if pay_condition:
             try:

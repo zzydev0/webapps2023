@@ -55,7 +55,7 @@ def register(request):
                     last_name=last_name,
                     email=email,
                     currency=currency,
-                    balance=convert('http://localhost:8000', 'GBP', currency, 1000)
+                    balance=convert('http://3.88.160.124:8000', 'GBP', currency, 1000)
                 )
                 auth.login(request, new_user)
                 return render(request, 'sign/info.html', locals())
